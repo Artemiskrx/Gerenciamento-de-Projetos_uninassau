@@ -3,9 +3,16 @@
 
 ## Pariticpantes:
 Carlos Roberto -> Banco de dados
+
+
 Antonio Vitor -> git/github, pastas do repositorio
+
+
 Thyago -> Modulo do menu
+
+
 David -> Modulo funcionários
+
 
 
 ## Modelo de dados
