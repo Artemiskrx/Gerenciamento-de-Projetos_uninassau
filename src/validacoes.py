@@ -10,13 +10,8 @@ def validar_texto(valor, campo):
 
 def validar_cpf(cpf):
     cpf = re.sub(r"\D", "", cpf)  # remove pontos e traco
-    if len(cpf) != 11 or cpf == cpf[0] * 11:  # tamanho e sequencias iguais
+    if len(cpf) != 11:
         raise ValueError("CPF invalido.")
-    for i in range(9, 11):  # calcula os 2 digitos verificadores
-        soma = sum(int(cpf[n]) * (i + 1 - n) for n in range(i))
-        digito = (soma * 10 % 11) % 10
-        if digito != int(cpf[i]):
-            raise ValueError("CPF invalido (digito verificador).")
     return cpf
 
 def validar_email(email):
