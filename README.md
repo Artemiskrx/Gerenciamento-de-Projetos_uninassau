@@ -25,7 +25,7 @@ Estrutura do projeto
 gerenciamento-projetos/
 ├── sql/
 │   ├── schema.sql           # criação do banco e das tabelas
-│   ├── dados_exemplo.sql    # dados de teste
+│   ├── sql_dados.sql        # dados de teste
 │   └── consultas.sql        # consultas úteis (JOIN, SUM)
 ├── src/
 │   ├── db.py                # conexão e função executar
@@ -36,60 +36,47 @@ gerenciamento-projetos/
 │   ├── menu_funcionarios.py
 │   ├── menu_projetos.py
 │   └── main.py              # menu principal
-├── docs/der.png
+├── sql/docs.png             # diagrama do banco
 ├── requirements.txt
 └── README.md
 ```
 Como executar
 1. Pré-requisitos
-Python 3.10 ou mais novo, MySQL Server e Git.
-2. Baixar o projeto
-```bash
-git clone LINK_DO_REPOSITORIO
-cd gerenciamento-projetos
+Python 3.10 ou mais novo, MySQL Server 8, MySQL Workbench e Git.
+2. Criar e ativar o ambiente virtual (PowerShell, na pasta do projeto)
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
-3. Criar o ambiente virtual e instalar as dependências
-```bash
-python -m venv venv
-
-# Windows:
-venv\Scripts\activate
-# Linux/macOS:
-source venv/bin/activate
-
-pip install -r requirements.txt
+Se a ativação for bloqueada, execute `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` e tente novamente.
+3. Instalar as dependências
+```powershell
+python -m pip install -r requirements.txt
 ```
-4. Criar o banco de dados
-```bash
-mysql -u root -p < sql/schema.sql
-```
-Opcional: carregar dados de exemplo para testar.
-```bash
-mysql -u root -p gerenciamento_projetos < sql/dados_exemplo.sql
-```
+4. Criar o banco de dados no MySQL Workbench
+Inicie o servidor MySQL, abra `sql/schema.sql` no Workbench e execute o script. Opcionalmente, abra e execute `sql/sql_dados.sql` para carregar dados de teste.
 5. Definir as variáveis de ambiente
-A senha do banco não fica no código. Defina antes de rodar
-(troque `sua_senha` pela senha do seu MySQL):
-```bash
-# Windows (cmd):
-set DB_PASSWORD=sua_senha
-# Windows (PowerShell):
+A senha do banco não fica no código. No PowerShell, defina antes de executar e mantenha este terminal aberto:
+```powershell
 $env:DB_PASSWORD="sua_senha"
-# Linux/macOS:
-export DB_PASSWORD=sua_senha
 ```
 Variável	Padrão	Descrição
 `DB_HOST`	`localhost`	Servidor do MySQL
 `DB_USER`	`root`	Usuário do MySQL
 `DB_NAME`	`gerenciamento_projetos`	Nome do banco
 `DB_PASSWORD`	(vazio)	Senha do MySQL
-6. Executar o sistema
-```bash
-cd src
-python main.py
+6. Executar o sistema (na pasta raiz do projeto)
+```powershell
+python .\src\main.py
 ```
+
+```$env:DB_PASSWORD = "sua_senha_do_mysql"
+python .\src\main.py
+```
+
+No VS Code, selecione o interpretador `.venv` usando **Python: Select Interpreter**.
 Validações
-CPF: 11 dígitos, dígitos verificadores corretos (aceita com ou sem pontuação)
+CPF: exige 11 dígitos, sem validar os dígitos verificadores (aceita com ou sem pontuação)
 E-mail: formato válido
 Orçamento: número maior que zero
 Prazo: formato DD/MM/AAAA, data real e não pode estar no passado
